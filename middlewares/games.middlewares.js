@@ -1,4 +1,5 @@
 //models
+const { Console } = require("../models/console.model");
 const { Game } = require("../models/game.model");
 
 //utils
@@ -18,4 +19,16 @@ const gameExist = catchAsync(async (req, res, next) => {
   next();
 });
 
-module.exports = { gameExist };
+const consoleIdExist = catchAsync(async (req, res, next) => {
+  const { consoleId } = req.body;
+
+  const console = await Console.findOne({where: {id: consoleId, status: "active"} });
+
+  if (!console) {
+    return next(new AppError("console doesnt exist", 404));
+  }
+
+  next();
+});
+
+module.exports = { gameExist, consoleIdExist };

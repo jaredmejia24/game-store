@@ -21,7 +21,12 @@ const createConsole = catchAsync(async (req, res, next) => {
 const getAllConsoles = catchAsync(async (req, res, next) => {
   const consoles = await Console.findAll({
     where: { status: "active" },
-    include: { model: Game, where: { status: "active" }, required: false },
+    include: {
+      model: Game,
+      through: { attributes: [] },
+      where: { status: "active" },
+      required: false,
+    },
   });
 
   res.status(200).json({

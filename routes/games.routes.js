@@ -11,7 +11,10 @@ const {
 
 //midlewares
 const { protectSession } = require("../middlewares/auth.middlewares");
-const { gameExist } = require("../middlewares/games.middlewares");
+const {
+  gameExist,
+  consoleIdExist,
+} = require("../middlewares/games.middlewares");
 const {
   createGameValidators,
   updateGameValidators,
@@ -24,7 +27,7 @@ gamesRouter.get("/", getAllGames);
 
 gamesRouter.use(protectSession);
 
-gamesRouter.post("/", createGameValidators, createGame);
+gamesRouter.post("/", createGameValidators, consoleIdExist, createGame);
 
 gamesRouter.patch("/:id", updateGameValidators, gameExist, updateGame);
 

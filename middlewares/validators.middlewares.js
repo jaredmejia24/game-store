@@ -48,6 +48,11 @@ const createGameValidators = [
     .withMessage("genre must not be empty")
     .isString()
     .withMessage("title must be a string"),
+  body("consoleId")
+    .notEmpty()
+    .withMessage("consoleId must not be empty")
+    .isNumeric()
+    .withMessage("consoleId must be a number"),
   checkValidations,
 ];
 
